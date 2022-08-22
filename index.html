@@ -1,0 +1,93 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+        crossorigin="anonymous"></script>
+
+    <title>Ciphers</title>
+</head>
+
+<body>
+    <h3 style="text-align: center;">Ciphers</h3>
+    <div class="container">
+        <div class="form-floating">
+            <textarea class="form-control" id="textarea" placeholder="Enter Message for Encoding" id="floatingTextarea2"
+                style="height: 100px"></textarea>
+            <label for="floatingTextarea2">Enter Your Mesaage</label>
+            <button class="btn btn-primary my-3" onclick="myfun()" type="button">Generate Cipher Text</button>
+
+        </div>
+        <div id="op1" ></div>
+        <div id="op" class="container-fluid border border-1" style="width: 70%;"></div>
+
+        <script type="text/Javascript">
+            function myfun(){
+                let input = document.querySelector("#textarea").value;
+                input = input.toUpperCase();
+                let x= document.getElementById("op");
+                let key = 2;
+                let arr = [];
+                let temp = 0;
+                if(x.hasChildNodes()){
+                   // x.parentNode.removeChild(x);
+                     while (x.firstChild) {
+                        x.removeChild(x.firstChild);
+                    } 
+                }
+               /*  else{
+                   // document.querySelector("#op1").innerHTML = "No";
+                } */
+                
+
+               //Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odit similique quisquam temporibus explicabo nostrum dolorem totam nisi eum consequuntur voluptatum minima, minus veritatis unde sed expedita, consectetur, id deserunt adipisci?
+
+                arr = input.split('');
+                for(let i=0;i<input.length;i++){
+                //Jayraj ABC
+                if(arr[i] === 'Y'){
+                    // 89 + key - 65; 91
+                        temp = 64 + key;
+                }
+                else if(arr[i] === 'Z'){
+                    // 89 + key - 65; 91
+                        temp = 65 + key;
+                }
+                else if(arr[i] === ' '){
+                    // 89 + key - 65; 91
+                        temp = 32;
+                }
+                else{
+                    temp = arr[i].charCodeAt() + key;
+                }
+                
+                let li = document.createElement("span");
+                li.innerHTML = String.fromCharCode(temp);
+                document.getElementById("op").appendChild(li);
+
+              //  document.querySelector("#op1").innerHTML = temp + " : " + String.fromCharCode(temp);
+            }
+                //document.querySelector("#op").innerHTML = arr[1].charCodeAt();
+               /*  arr.map((e)=>{}
+                 
+                ) */
+                /* for (i = 0; i < 26; i++) {
+                    var li = document.createElement("li");
+                    li.innerHTML = "letter " + (i+10).toString(36) + " ";
+                    li.style.listStyle = "none";
+                    li.style.display = "block";
+                    document.getElementById("op").appendChild(li);
+                } */
+            }
+        </script>
+</body>
+
+</html>
