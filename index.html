@@ -13,6 +13,15 @@
         integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
         crossorigin="anonymous"></script>
 
+<style>
+    #btn{
+        border: 0;
+        background-color: rgb(255, 255, 255);
+        text-decoration: none;
+        color: black;
+    }
+</style>
+
     <title>Ciphers</title>
 </head>
 
@@ -23,13 +32,134 @@
             <textarea class="form-control" id="textarea" placeholder="Enter Message for Encoding" id="floatingTextarea2"
                 style="height: 100px"></textarea>
             <label for="floatingTextarea2">Enter Your Mesaage</label>
-            <button class="btn btn-primary my-3" onclick="myfun()" type="button">Generate Cipher Text</button>
-
+            <button class="btn btn-primary my-3" onclick="encryption()" type="button">Generate Cipher Text</button>
+            <button class="btn btn-primary my-3" onclick="decryption()" type="button">Generate Plain Text</button>
         </div>
-        <div id="op1" ></div>
+        <button onclick="check()" id="btn">See Key</button>
+        <span id="op1" style="visibility:hidden;"> : ABC</span>
         <div id="op" class="container-fluid border border-1" style="width: 70%;"></div>
+    </div>
+    <script>
+        let c=0;
+        function check() {
+            
+            if(c%2===0){
+                document.getElementById('op1').style.visibility = 'visible';
+                //document.getElementById('btn').style.visibility = 'hidden';
+            }else{
+                document.getElementById('op1').style.visibility = 'hidden';
+               // document.getElementById('btn').style.visibility = 'visible';
+            }
+           c++;
+        }
+        function encryption() {
+            // let key = 4;
+            let key = Math.round(Math.random() * (25 - 1) + 1);
+            let temp = "", temp1;
+            let str = document.querySelector('#textarea').value.toUpperCase();
+            if(str.length <= 0){
+                alert("Please Enter Message !!!");
+            }else{
+            let ar = str.split('');
 
-        <script type="text/Javascript">
+            for (let i = 0; i < ar.length; i++) {
+                if (ar[i].charCodeAt() >= 65 && ar[i].charCodeAt() < 91) {
+                    if (ar[i].charCodeAt() + key > 90) {
+                        for (let j = 1; j <= key; j++) {
+                            if (ar[i].charCodeAt() + j > 90) {
+                                temp1 = 65 + (key - j);
+                                temp = temp + String.fromCharCode(temp1);
+                                break;
+                            }
+                        }
+                    } else {
+                        temp1 = ar[i].charCodeAt() + key;
+                        temp = temp + String.fromCharCode(temp1);
+                    }
+
+                }
+
+                else if (ar[i].charCodeAt() === 46) { // .
+                    temp = temp + String.fromCharCode(ar[i].charCodeAt());
+                }
+                else if (ar[i].charCodeAt() === 44) { // ,
+                    temp = temp + String.fromCharCode(ar[i].charCodeAt());
+                }
+                else if (ar[i].charCodeAt() === 63) { // ?
+                    temp = temp + String.fromCharCode(ar[i].charCodeAt());
+                }
+                else {
+                    temp = temp + " Undefine ";
+                }
+            }
+            document.querySelector('#op').innerHTML = temp + String.fromCharCode(key + 65);
+
+
+            
+                document.querySelector('#op1').innerHTML = " : " + key + " " + String.fromCharCode(key + 65);
+                
+        }
+        }
+
+        function decryption() {
+            let temp = "", temp1;
+            let str = document.querySelector('#textarea').value.toUpperCase();
+
+            if(str.length <= 1){
+                alert("Please Enter Message !!!");
+            }else{
+
+            let ar = str.split('');
+            let key = ar[ar.length - 1].charCodeAt() - 65;
+            for (let i = 0; i < ar.length - 1; i++) {
+                if (ar[i].charCodeAt() >= 65 && ar[i].charCodeAt() < 91) {
+                    if (ar[i].charCodeAt() - key < 65) {
+                        for (let j = 1; j <= key; j++) {
+                            if (ar[i].charCodeAt() - j < 65) {
+                                temp1 = 91 - (key - j + 1);
+                                temp = temp + String.fromCharCode(temp1);
+                                break;
+                            }
+                        }
+                    } else {
+                        temp1 = ar[i].charCodeAt() - key;
+                        temp = temp + String.fromCharCode(temp1);
+                    }
+
+                }
+                else if (ar[i].charCodeAt() === 13) { // enter
+                    temp = temp + String.fromCharCode(ar[i].charCodeAt());
+                }
+                else if (ar[i].charCodeAt() === 32) {
+                    temp = temp + String.fromCharCode(ar[i].charCodeAt());
+                }
+                else if (ar[i].charCodeAt() === 46) { // .
+                    temp = temp + String.fromCharCode(ar[i].charCodeAt());
+                }
+                else if (ar[i].charCodeAt() === 44) { // ,
+                    temp = temp + String.fromCharCode(ar[i].charCodeAt());
+                }
+                else if (ar[i].charCodeAt() === 63) { // ?
+                    temp = temp + String.fromCharCode(ar[i].charCodeAt());
+                }
+                else {
+                    temp = temp + " Undefine ";
+                }
+            }
+
+            document.querySelector('#op').innerHTML = temp;
+           
+                document.querySelector('#op1').innerHTML = " : " + key;
+        }
+                   }
+    </script>
+
+
+    <!--   <script type="text/Javascript">
+            function random(){
+                //let a=0,b=25;
+                return Math.random() * (26 - 0) + 0;
+            }
             function myfun(){
                 let input = document.querySelector("#textarea").value;
                 input = input.toUpperCase();
@@ -49,7 +179,7 @@
                 
 
                //Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odit similique quisquam temporibus explicabo nostrum dolorem totam nisi eum consequuntur voluptatum minima, minus veritatis unde sed expedita, consectetur, id deserunt adipisci?
-
+               let temp1 = "";
                 arr = input.split('');
                 for(let i=0;i<input.length;i++){
                 //Jayraj ABC
@@ -69,10 +199,14 @@
                     temp = arr[i].charCodeAt() + key;
                 }
                 
+               
+                temp1 = temp1 + String.fromCharCode(temp);
+
                 let li = document.createElement("span");
                 li.innerHTML = String.fromCharCode(temp);
                 document.getElementById("op").appendChild(li);
 
+                document.querySelector("#op1").innerHTML = temp1;
               //  document.querySelector("#op1").innerHTML = temp + " : " + String.fromCharCode(temp);
             }
                 //document.querySelector("#op").innerHTML = arr[1].charCodeAt();
@@ -87,7 +221,8 @@
                     document.getElementById("op").appendChild(li);
                 } */
             }
-        </script>
+        </script> -->
+
 </body>
 
 </html>

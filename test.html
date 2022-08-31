@@ -1,0 +1,119 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testing...</title>
+</head>
+
+<body>
+    <div>
+        <textarea id="a" placeholder="Enter"></textarea>
+        <button onclick="intfromalpha()">Encryption</button>
+        <button onclick="dec()">Decryption</button>
+    </div>
+    <div>
+        <div id="b1">See</div>
+        <div id="b2">Test</div>
+    </div>
+    <script>
+
+        function encryption() {
+            // let key = 4;
+            let key = Math.round(Math.random() * (25 - 1) + 1);
+            let temp = "", temp1;
+            let str = document.querySelector('#a').value;
+            let ar = str.split('');
+
+            for (let i = 0; i < ar.length; i++) {
+                if (ar[i].charCodeAt() >= 65 && ar[i].charCodeAt() < 91) {
+                    if (ar[i].charCodeAt() + key > 90) {
+                        for (let j = 1; j <= key; j++) {
+                            if (ar[i].charCodeAt() + j > 90) {
+                                temp1 = 65 + (key - j);
+                                temp = temp + String.fromCharCode(temp1);
+                                break;
+                            }
+                        }
+                    } else {
+                        temp1 = ar[i].charCodeAt() + key;
+                        temp = temp + String.fromCharCode(temp1);
+                    }
+
+                }
+                else if (ar[i].charCodeAt() === 32) {
+                    temp = temp + String.fromCharCode(ar[i].charCodeAt());
+                }
+                else {
+                    temp = temp + " Undefine ";
+                }
+            }
+
+            document.querySelector('#b1').innerHTML = temp + String.fromCharCode(key + 65);
+            document.querySelector('#b2').innerHTML = "Key : " + key + " " + String.fromCharCode(key + 65);
+        }
+
+        function decryption() {
+            let temp = "", temp1;
+            let str = document.querySelector('#a').value;
+            let ar = str.split('');
+            let key = ar[ar.length - 1].charCodeAt() - 65;
+            
+            //let tk = key-65;
+            // ABC XYZ 
+            // CDE ZAB C  key=2
+ 
+            for (let i = 0; i < ar.length - 1; i++) {
+                if (ar[i].charCodeAt() >= 65 && ar[i].charCodeAt() < 91) {
+                    if (ar[i].charCodeAt() - key < 65) {
+                        for (let j = 1; j <= key; j++) {
+                            if (ar[i].charCodeAt() - j < 65) {
+                                temp1 = 91 - (key - j+1);
+                                temp = temp + String.fromCharCode(temp1);
+                                break;
+                            }
+                        }
+                    } else {
+                        temp1 = ar[i].charCodeAt() - key;
+                        temp = temp + String.fromCharCode(temp1);
+                    }
+
+                }
+                else if (ar[i].charCodeAt() === 32) {
+                    temp = temp + String.fromCharCode(ar[i].charCodeAt());
+                }
+                else {
+                    temp = temp + " Undefine ";
+                }
+            }
+
+            document.querySelector('#b1').innerHTML = temp;
+            document.querySelector('#b2').innerHTML = "Key : " + key;
+        }
+
+        function myfun() {
+            let x = document.querySelector('#b1');
+            let y = document.querySelector('#b2');
+            let x1 = "", y1 = "";
+
+
+            let mmap = new Map([['foo', 'Jay'], ['bar', {}], ['baz', undefined]]);
+            mmap.set('A', 1);
+            mmap.set('B', 2);
+            mmap.set('C', 3);
+            mmap.set('D', 4);
+            mmap.set('E', 5);
+
+
+            for (let i = 0; i < 26; i++) {
+                x1 = x1 + Math.round(Math.random() * (26 - 1) + 1) + " , ";
+                y1 = y1 + Math.round(Math.random() * (26 - 1) + 1) + " , ";
+            }
+            //  x.innerHTML = x1 + "<br/>" + (mmap.get('A')+1) + " , type : " + typeof(mmap.get('A')) ;
+            y.innerHTML = y1 + "<br/>" + mmap.get('foo');
+        }
+    </script>
+</body>
+
+</html>
