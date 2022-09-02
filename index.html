@@ -78,7 +78,9 @@
                     }
 
                 }
-
+                else if (ar[i].charCodeAt() === 32) {
+                    temp = temp + String.fromCharCode(ar[i].charCodeAt());
+                }
                 else if (ar[i].charCodeAt() === 46) { // .
                     temp = temp + String.fromCharCode(ar[i].charCodeAt());
                 }
